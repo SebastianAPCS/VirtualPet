@@ -1,23 +1,25 @@
+// Processing code is below
+
 ArrayList<Triangle> triangles;
-ArrayList<Quadrilateral> quadrilaterals; // Add this list for quadrilaterals
+ArrayList<Quadrilateral> quadrilaterals;
 Matrix3 transform;
 float[] angles = new float[2];
 
 void setup() {
     size(800, 600);
-    triangles = new Objects().initializeTriangles(); // Initialize triangles
-    quadrilaterals = new Objects().initializeQuadrilaterals(); // Initialize quadrilaterals
+    triangles = new Objects().initializeTriangles();
+    quadrilaterals = new Objects().initializeQuadrilaterals();
     angles[0] = 0;
     angles[1] = 0;
 
     updateTransform();
 }
-
 void draw() {
     background(0);
     translate(width / 2, height / 2);
     stroke(255);
-
+    
+    /* 
     for (Triangle triangle : triangles) {
         Vertex v1 = transform.transform(triangle.v1);
         Vertex v2 = transform.transform(triangle.v2);
@@ -28,6 +30,7 @@ void draw() {
         line((float) v2.x, (float) v2.y, (float) v3.x, (float) v3.y);
         line((float) v3.x, (float) v3.y, (float) v1.x, (float) v1.y);
     }
+    */
 
     for (Quadrilateral quad : quadrilaterals) {
         Vertex v1 = transform.transform(quad.v1);
@@ -35,20 +38,11 @@ void draw() {
         Vertex v3 = transform.transform(quad.v3);
         Vertex v4 = transform.transform(quad.v4);
 
-        // Draw lines between vertices
         line((float) v1.x, (float) v1.y, (float) v2.x, (float) v2.y);
         line((float) v2.x, (float) v2.y, (float) v3.x, (float) v3.y);
         line((float) v3.x, (float) v3.y, (float) v4.x, (float) v4.y);
         line((float) v4.x, (float) v4.y, (float) v1.x, (float) v1.y);
-    }
-    
-    for (Quadrilateral quad : quadrilaterals) {
-        Vertex v1 = transform.transform(quad.v1);
-        Vertex v2 = transform.transform(quad.v2);
-        Vertex v3 = transform.transform(quad.v3);
-        Vertex v4 = transform.transform(quad.v4);
-
-        // Use the gradient/color from the Quadrilateral object
+                
         Gradient c = quad.c;
         beginShape();
         fill(c.sR, c.sG, c.sB);
@@ -58,19 +52,6 @@ void draw() {
         vertex((float) v4.x, (float) v4.y);
         endShape(CLOSE);
     }
-}
-
-boolean sameSide(Vertex A, Vertex B, Vertex C, Vertex p) {
-    Vertex V1V2 = new Vertex(B.x - A.x, B.y - A.y, B.z - A.z);
-    Vertex V1V3 = new Vertex(C.x - A.x, C.y - A.y, C.z - A.z);
-    Vertex V1P = new Vertex(p.x - A.x, p.y - A.y, p.z - A.z);
-
-    // Calculate the cross products
-    double V1V2CrossV1V3 = V1V2.x * V1V3.y - V1V3.x * V1V2.y;
-    double V1V2CrossP = V1V2.x * V1P.y - V1P.x * V1V2.y;
-
-    // Determine if the cross products have the same sign
-    return (V1V2CrossV1V3 >= 0 && V1V2CrossP >= 0) || (V1V2CrossV1V3 < 0 && V1V2CrossP < 0);
 }
 
 void updateTransform() {
@@ -203,21 +184,21 @@ class Objects {
     ArrayList initializeTriangles() {
         ArrayList t = new ArrayList<>();
         t.add(new Triangle(new Vertex(100, 100, 100),
-                           new Vertex(-100, -100, 100),
-                           new Vertex(-100, 100, -100),
-                           new Gradient(255, 0, 0, 255, 0, 0)));
+                        new Vertex(-100, -100, 100),
+                        new Vertex(-100, 100, -100),
+                        new Gradient(255, 0, 0, 255, 0, 0)));
         t.add(new Triangle(new Vertex(100, 100, 100),
-                           new Vertex(-100, -100, 100),
-                           new Vertex(100, -100, -100),
-                           new Gradient(0, 255, 0, 0, 255, 0)));
+                        new Vertex(-100, -100, 100),
+                        new Vertex(100, -100, -100),
+                        new Gradient(0, 255, 0, 0, 255, 0)));
         t.add(new Triangle(new Vertex(-100, 100, -100),
-                           new Vertex(100, -100, -100),
-                           new Vertex(100, 100, 100),
-                           new Gradient(0, 0, 255, 0, 0, 255)));
+                        new Vertex(100, -100, -100),
+                        new Vertex(100, 100, 100),
+                        new Gradient(0, 0, 255, 0, 0, 255)));
         t.add(new Triangle(new Vertex(-100, 100, -100),
-                           new Vertex(100, -100, -100),
-                           new Vertex(-100, -100, 100),
-                           new Gradient(255, 0, 255, 255, 0, 255)));
+                        new Vertex(100, -100, -100),
+                        new Vertex(-100, -100, 100),
+                        new Gradient(255, 0, 255, 255, 0, 255)));
         return t;
     }
     ArrayList initializeQuadrilaterals() {
