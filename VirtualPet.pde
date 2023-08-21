@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 ArrayList<Triangle> triangles;
 ArrayList<Quadrilateral> quadrilaterals; // Add this list for quadrilaterals
 Matrix3 transform;
