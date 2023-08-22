@@ -1,9 +1,15 @@
+import java.util.ArrayList;
+import java.lang.Math;
+
 // Processing code is below
 
 ArrayList<Triangle> triangles;
 ArrayList<Quadrilateral> quadrilaterals;
 Matrix3 transform;
 float[] angles = new float[2];
+int r = 0; // (int) (255 * Math.random());;
+int g = 0; //(int) (255 * Math.random());;
+int b = 255; //(int) (255 * Math.random());;
 
 void setup() {
     size(800, 600);
@@ -11,6 +17,7 @@ void setup() {
     quadrilaterals = new Objects().initializeQuadrilaterals();
     angles[0] = 0;
     angles[1] = 0;
+    strokeWeight(10);
 
     updateTransform();
 }
@@ -19,7 +26,7 @@ void draw() {
     translate(width / 2, height / 2);
     stroke(255);
     
-    /* 
+    /*
     for (Triangle triangle : triangles) {
         Vertex v1 = transform.transform(triangle.v1);
         Vertex v2 = transform.transform(triangle.v2);
@@ -31,18 +38,38 @@ void draw() {
         line((float) v3.x, (float) v3.y, (float) v1.x, (float) v1.y);
     }
     */
-
+    
+    
     for (Quadrilateral quad : quadrilaterals) {
         Vertex v1 = transform.transform(quad.v1);
         Vertex v2 = transform.transform(quad.v2);
         Vertex v3 = transform.transform(quad.v3);
         Vertex v4 = transform.transform(quad.v4);
-
+        
+        stroke(r, g, b);
+        
+        /*
+        r += (int) (2 * Math.random());
+        g += (int) (2 * Math.random());
+        b += (int) (2 * Math.random());
+        
+        if (r > 255) {
+            r = (int) (255 * Math.random());
+        }
+        if (g > 255) {
+            g = (int) (255 * Math.random());
+        }
+        if (b > 255) {
+            b = (int) (255 * Math.random());
+        }
+        */
+    
         line((float) v1.x, (float) v1.y, (float) v2.x, (float) v2.y);
         line((float) v2.x, (float) v2.y, (float) v3.x, (float) v3.y);
         line((float) v3.x, (float) v3.y, (float) v4.x, (float) v4.y);
         line((float) v4.x, (float) v4.y, (float) v1.x, (float) v1.y);
-                
+        
+        /*
         Gradient c = quad.c;
         beginShape();
         fill(c.sR, c.sG, c.sB);
@@ -51,7 +78,12 @@ void draw() {
         vertex((float) v3.x, (float) v3.y);
         vertex((float) v4.x, (float) v4.y);
         endShape(CLOSE);
+        */
+        
     }
+    
+    
+    
 }
 
 void updateTransform() {
@@ -78,6 +110,7 @@ void mouseDragged() {
     float xIncrement = sensitivity * (mouseX - pmouseX);
     angles[0] += xIncrement;
     angles[1] += yIncrement;
+    redraw();
 
     updateTransform();
 }
@@ -215,11 +248,11 @@ class Objects {
 
         // Create quadrilaterals for the 3D rectangle
         q.add(new Quadrilateral(r1, r2, r3, r4, new Gradient(255, 0, 0, 255, 0, 0)));
-        q.add(new Quadrilateral(r5, r6, r7, r8, new Gradient(0, 255, 0, 0, 255, 0)));
-        q.add(new Quadrilateral(r1, r2, r6, r5, new Gradient(0, 0, 255, 0, 0, 255)));
-        q.add(new Quadrilateral(r2, r3, r7, r6, new Gradient(255, 0, 255, 255, 0, 255)));
-        q.add(new Quadrilateral(r3, r4, r8, r7, new Gradient(255, 255, 0, 255, 255, 0)));
-        q.add(new Quadrilateral(r1, r4, r8, r5, new Gradient(0, 255, 255, 0, 255, 255)));
+        q.add(new Quadrilateral(r5, r6, r7, r8, new Gradient(255, 0, 0, 255, 0, 0)));
+        q.add(new Quadrilateral(r1, r2, r6, r5, new Gradient(255, 0, 0, 255, 0, 0)));
+        q.add(new Quadrilateral(r2, r3, r7, r6, new Gradient(255, 0, 0, 255, 0, 0)));
+        q.add(new Quadrilateral(r3, r4, r8, r7, new Gradient(255, 0, 0, 255, 0, 0)));
+        q.add(new Quadrilateral(r1, r4, r8, r5, new Gradient(255, 0, 0, 255, 0, 0)));
         
         return q;
     }
