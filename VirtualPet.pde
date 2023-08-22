@@ -275,11 +275,11 @@ class Matrix3 {
         }
         return new Matrix3(result);
     }
-    Vertex transform(Vertex in) {
+    Vertex transform(Vertex vinput) {
         return new Vertex(
-            in.x * values[0] + in.y * values[3] + in.z * values[6],
-            in.x * values[1] + in.y * values[4] + in.z * values[7],
-            in.x * values[2] + in.y * values[5] + in.z * values[8]
+            vinput.x * values[0] + vinput.y * values[3] + vinput.z * values[6],
+            vinput.x * values[1] + vinput.y * values[4] + vinput.z * values[7],
+            vinput.x * values[2] + vinput.y * values[5] + vinput.z * values[8]
         );
     }
 }
