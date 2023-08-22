@@ -7,9 +7,9 @@ ArrayList<Triangle> triangles;
 ArrayList<Quadrilateral> quadrilaterals;
 Matrix3 transform;
 float[] angles = new float[2];
-int r = 0; // (int) (255 * Math.random());;
-int g = 0; //(int) (255 * Math.random());;
-int b = 255; //(int) (255 * Math.random());;
+int r = 255; // (int) (255 * Math.random());;
+int g = 255; //(int) (255 * Math.random());;
+int b = 0; //(int) (255 * Math.random());;
 
 void setup() {
     size(800, 600);
@@ -215,7 +215,7 @@ class Circle {
 
 class Objects {
     ArrayList initializeTriangles() {
-        ArrayList t = new ArrayList<>();
+        ArrayList<Triangle> t = new ArrayList<Triangle>();
         t.add(new Triangle(new Vertex(100, 100, 100),
                         new Vertex(-100, -100, 100),
                         new Vertex(-100, 100, -100),
@@ -235,7 +235,7 @@ class Objects {
         return t;
     }
     ArrayList initializeQuadrilaterals() {
-        ArrayList q = new ArrayList<>();
+        ArrayList<Quadrilateral> q = new ArrayList<Quadrilateral>();
                 // Define vertices for the 3D rectangle
         Vertex r1 = new Vertex(100, 100, 100);
         Vertex r2 = new Vertex(-100, 100, 100);
