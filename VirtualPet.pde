@@ -23,7 +23,7 @@ ArrayList<Sphere> s1 = new Objects().initializeSpheres(1);
 
 public void setup() {
     size(800, 600);
-    strokeWeight(10);
+    strokeWeight(2);
     
     angles[0] = 0;
     angles[1] = 0;
@@ -34,6 +34,12 @@ public void setup() {
 void draw() {
     background(0);
     translate(width / 2, height / 2);
+    
+    float angle = radians(angles[0]); // Convert angle to radians
+    // Calculate RGB values based on the angle
+    r = (int) (127 + 127 * cos(angle));
+    g = (int) (127 + 127 * cos(angle + TWO_PI / 3));
+    b = (int) (127 + 127 * cos(angle + 2 * TWO_PI / 3));
     
     renderQuadrilateral(quad1, false, r, g, b);
     renderQuadrilateral(quad2, false, r, g, b);
