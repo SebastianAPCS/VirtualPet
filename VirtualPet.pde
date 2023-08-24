@@ -16,8 +16,10 @@ int r = 255; // (int) (255 * Math.random());;
 int g = 255; // (int) (255 * Math.random());;
 int b = 0; // (int) (255 * Math.random());;
 
-ArrayList<Quadrilateral> quad1 = new Objects().initializeQuadrilateral(1);
-ArrayList<Quadrilateral> quad2 = new Objects().initializeQuadrilateral(2);
+ArrayList<Quadrilateral> quad1 = new Objects().initializeQuadrilateral(1, 1);
+ArrayList<Quadrilateral> quad2 = new Objects().initializeQuadrilateral(2, 1);
+ArrayList<Quadrilateral> quad3 = new Objects().initializeQuadrilateral(3, 3);
+ArrayList<Quadrilateral> quad4 = new Objects().initializeQuadrilateral(4, 3);
 ArrayList<Triangle> tri1 = new Objects().initializeTriangle(1);
 ArrayList<Sphere> s1 = new Objects().initializeSpheres(1);
 
@@ -41,13 +43,18 @@ void draw() {
     g = (int) (127 + 127 * cos(angle + TWO_PI / 3));
     b = (int) (127 + 127 * cos(angle + 2 * TWO_PI / 3));
     
+    /*
     renderQuadrilateral(quad1, false, r, g, b);
     renderQuadrilateral(quad2, false, r, g, b);
     renderTriangle(tri1, false, r, g, b);
     renderSphere(s1, false, r, g, b);
+    */
+    
+    renderQuadrilateral(quad3, false, 255, 255, 255, 10);
+    renderQuadrilateral(quad4, false, 255, 0, 0, 10);
 }
 
-void renderQuadrilateral(ArrayList<Quadrilateral> quads, boolean cb, int rc, int bc, int gc) {
+void renderQuadrilateral(ArrayList<Quadrilateral> quads, boolean cb, int rc, int bc, int gc, float w) {
     for (Quadrilateral quad : quads) {
         // v1, v2, v3, v4, and c must be defined
 
@@ -57,6 +64,7 @@ void renderQuadrilateral(ArrayList<Quadrilateral> quads, boolean cb, int rc, int
         Vertex v4 = transform.transform(quad.v4);
         
         stroke(rc, bc, gc);
+        strokeWeight(w);
     
         line((float) v1.x, (float) v1.y, (float) v2.x, (float) v2.y);
         line((float) v2.x, (float) v2.y, (float) v3.x, (float) v3.y);
@@ -271,18 +279,18 @@ class Objects {
         return t;
     }
     
-    ArrayList initializeQuadrilateral(int n) {
+    ArrayList initializeQuadrilateral(int n, double p) {
         ArrayList<Quadrilateral> q = new ArrayList<Quadrilateral>();
         // Define arrays for the 3D constructions
         if (n==1) {
-            Vertex r1 = new Vertex(100, 100, 100);
-            Vertex r2 = new Vertex(-100, 100, 100);
-            Vertex r3 = new Vertex(-100, -100, 100);
-            Vertex r4 = new Vertex(100, -100, 100);
-            Vertex r5 = new Vertex(100, 100, -100);
-            Vertex r6 = new Vertex(-100, 100, -100);
-            Vertex r7 = new Vertex(-100, -100, -100);
-            Vertex r8 = new Vertex(100, -100, -100);
+            Vertex r1 = new Vertex((int)100*p, (int)100*p, (int)100*p);
+            Vertex r2 = new Vertex((int)-100*p, (int)100*p, (int)100*p);
+            Vertex r3 = new Vertex((int)-100*p, (int)-100*p, (int)100*p);
+            Vertex r4 = new Vertex((int)100*p, (int)-100*p, (int)100*p);
+            Vertex r5 = new Vertex((int)100*p, (int)100*p, (int)-100*p);
+            Vertex r6 = new Vertex((int)-100*p, (int)100*p, (int)-100*p);
+            Vertex r7 = new Vertex((int)-100*p, (int)-100*p, (int)-100*p);
+            Vertex r8 = new Vertex((int)100*p, (int)-100*p, (int)-100*p);
 
             q.add(new Quadrilateral(r1, r2, r3, r4, new Gradient(255, 0, 0, 255, 0, 0)));
             q.add(new Quadrilateral(r5, r6, r7, r8, new Gradient(255, 0, 0, 255, 0, 0)));
@@ -290,16 +298,15 @@ class Objects {
             q.add(new Quadrilateral(r2, r3, r7, r6, new Gradient(255, 0, 0, 255, 0, 0)));
             q.add(new Quadrilateral(r3, r4, r8, r7, new Gradient(255, 0, 0, 255, 0, 0)));
             q.add(new Quadrilateral(r1, r4, r8, r5, new Gradient(255, 0, 0, 255, 0, 0)));
-        }
-        if (n==2) {
-            Vertex r1 = new Vertex(200, 200, 200);
-            Vertex r2 = new Vertex(-200, 200, 200);
-            Vertex r3 = new Vertex(-200, -200, 200);
-            Vertex r4 = new Vertex(200, -200, 200);
-            Vertex r5 = new Vertex(200, 200, -200);
-            Vertex r6 = new Vertex(-200, 200, -200);
-            Vertex r7 = new Vertex(-200, -200, -200);
-            Vertex r8 = new Vertex(200, -200, -200);
+        } else if (n==2) {
+            Vertex r1 = new Vertex((int)200*p, (int)200*p, (int)200*p);
+            Vertex r2 = new Vertex((int)-200*p, (int)200*p, (int)200*p);
+            Vertex r3 = new Vertex((int)-200*p, (int)-200*p, (int)200*p);
+            Vertex r4 = new Vertex((int)200*p, (int)-200*p, (int)200*p);
+            Vertex r5 = new Vertex((int)200*p, (int)200*p, (int)-200*p);
+            Vertex r6 = new Vertex((int)-200*p, (int)200*p, (int)-200*p);
+            Vertex r7 = new Vertex((int)-200*p, (int)-200*p, (int)-200*p);
+            Vertex r8 = new Vertex((int)200*p, (int)-200*p, (int)-200*p);
 
             q.add(new Quadrilateral(r1, r2, r3, r4, new Gradient(255, 0, 0, 255, 0, 0)));
             q.add(new Quadrilateral(r5, r6, r7, r8, new Gradient(255, 0, 0, 255, 0, 0)));
@@ -307,8 +314,39 @@ class Objects {
             q.add(new Quadrilateral(r2, r3, r7, r6, new Gradient(255, 0, 0, 255, 0, 0)));
             q.add(new Quadrilateral(r3, r4, r8, r7, new Gradient(255, 0, 0, 255, 0, 0)));
             q.add(new Quadrilateral(r1, r4, r8, r5, new Gradient(255, 0, 0, 255, 0, 0)));
-        }
-        if (n>2) {
+        } else if (n==3) {
+            Vertex r1 = new Vertex((int)30*p, (int)60*p, (int)25*p);
+            Vertex r2 = new Vertex((int)-30*p, (int)60*p, (int)25*p);
+            Vertex r3 = new Vertex((int)-30*p, (int)-60*p, (int)25*p);
+            Vertex r4 = new Vertex((int)30*p, (int)-60*p, (int)25*p);
+            Vertex r5 = new Vertex((int)30*p, (int)60*p, (int)-25*p);
+            Vertex r6 = new Vertex((int)-30*p, (int)60*p, (int)-25*p);
+            Vertex r7 = new Vertex((int)-30*p, (int)-60*p, (int)-25*p);
+            Vertex r8 = new Vertex((int)30*p, (int)-60*p, (int)-25*p);
+            
+            q.add(new Quadrilateral(r1, r2, r3, r4, new Gradient(255, 255, 255, 255, 255, 255)));
+            q.add(new Quadrilateral(r5, r6, r7, r8, new Gradient(255, 255, 255, 255, 255, 255)));
+            q.add(new Quadrilateral(r1, r2, r6, r5, new Gradient(255, 255, 255, 255, 255, 255)));
+            q.add(new Quadrilateral(r2, r3, r7, r6, new Gradient(255, 255, 255, 255, 255, 255)));
+            q.add(new Quadrilateral(r3, r4, r8, r7, new Gradient(255, 255, 255, 255, 255, 255)));
+            q.add(new Quadrilateral(r1, r4, r8, r5, new Gradient(255, 255, 255, 255, 255, 255)));
+        } else if (n==4) {
+            Vertex r1 = new Vertex((int)10*p, (int)-70*p, (int)15*p);
+            Vertex r2 = new Vertex((int)-10*p, (int)-70*p, (int)15*p);
+            Vertex r3 = new Vertex((int)-10*p, (int)-60*p, (int)15*p);
+            Vertex r4 = new Vertex((int)10*p, (int)-60*p, (int)15*p);
+            Vertex r5 = new Vertex((int)10*p, (int)-70*p, (int)-15*p);
+            Vertex r6 = new Vertex((int)-10*p, (int)-70*p, (int)-15*p);
+            Vertex r7 = new Vertex((int)-10*p, (int)-60*p, (int)-15*p);
+            Vertex r8 = new Vertex((int)10*p, (int)-60*p, (int)-15*p);
+            
+            q.add(new Quadrilateral(r1, r2, r3, r4, new Gradient(255, 255, 255, 255, 255, 255)));
+            q.add(new Quadrilateral(r5, r6, r7, r8, new Gradient(255, 255, 255, 255, 255, 255)));
+            q.add(new Quadrilateral(r1, r2, r6, r5, new Gradient(255, 255, 255, 255, 255, 255)));
+            q.add(new Quadrilateral(r2, r3, r7, r6, new Gradient(255, 255, 255, 255, 255, 255)));
+            q.add(new Quadrilateral(r3, r4, r8, r7, new Gradient(255, 255, 255, 255, 255, 255)));
+            q.add(new Quadrilateral(r1, r4, r8, r5, new Gradient(255, 255, 255, 255, 255, 255)));
+        } else {
             exit();
         }
         return q;
