@@ -18,8 +18,8 @@ int b = 0; // (int) (255 * Math.random());;
 
 ArrayList<Quadrilateral> quad1 = new Objects().initializeQuadrilateral(1, 1);
 ArrayList<Quadrilateral> quad2 = new Objects().initializeQuadrilateral(2, 1);
-ArrayList<Quadrilateral> quad3 = new Objects().initializeQuadrilateral(3, 3);
-ArrayList<Quadrilateral> quad4 = new Objects().initializeQuadrilateral(4, 3);
+ArrayList<Quadrilateral> quad3 = new Objects().initializeQuadrilateral(3, 2.5);
+ArrayList<Quadrilateral> quad4 = new Objects().initializeQuadrilateral(4, 2.5);
 ArrayList<Triangle> tri1 = new Objects().initializeTriangle(1);
 ArrayList<Sphere> s1 = new Objects().initializeSpheres(1);
 
@@ -37,21 +37,19 @@ void draw() {
     background(0);
     translate(width / 2, height / 2);
     
-    float angle = radians(angles[0]); // Convert angle to radians
-    // Calculate RGB values based on the angle
+    float angle = radians(angles[0]);
     r = (int) (127 + 127 * cos(angle));
     g = (int) (127 + 127 * cos(angle + TWO_PI / 3));
     b = (int) (127 + 127 * cos(angle + 2 * TWO_PI / 3));
     
-    /*
-    renderQuadrilateral(quad1, false, r, g, b);
-    renderQuadrilateral(quad2, false, r, g, b);
-    renderTriangle(tri1, false, r, g, b);
-    renderSphere(s1, false, r, g, b);
-    */
     
-    renderQuadrilateral(quad3, false, 255, 255, 255, 10);
-    renderQuadrilateral(quad4, false, 255, 0, 0, 10);
+    //renderQuadrilateral(quad1, false, r, g, b, 1);
+    renderQuadrilateral(quad2, false, r, g, b, 1);
+    //renderTriangle(tri1, false, r, g, b, 1.5);
+    //renderSphere(s1, false, r, g, b, 1.5);
+    
+    renderQuadrilateral(quad3, false, 255, 255, 255, 4);
+    renderQuadrilateral(quad4, false, 255, 0, 0, 4);
 }
 
 void renderQuadrilateral(ArrayList<Quadrilateral> quads, boolean cb, int rc, int bc, int gc, float w) {
@@ -84,7 +82,7 @@ void renderQuadrilateral(ArrayList<Quadrilateral> quads, boolean cb, int rc, int
     }  
 }
 
-void renderTriangle(ArrayList<Triangle> tr, boolean cb, int rc, int bc, int gc) {
+void renderTriangle(ArrayList<Triangle> tr, boolean cb, int rc, int bc, int gc, float w) {
      for (Triangle triangle : tr) {
          // v1, v2, v3, and c must be defined
           Vertex v1 = transform.transform(triangle.v1);
@@ -92,10 +90,12 @@ void renderTriangle(ArrayList<Triangle> tr, boolean cb, int rc, int bc, int gc) 
           Vertex v3 = transform.transform(triangle.v3);
           
           stroke(rc, bc, gc);
+          strokeWeight(w);
   
           line((float) v1.x, (float) v1.y, (float) v2.x, (float) v2.y);
           line((float) v2.x, (float) v2.y, (float) v3.x, (float) v3.y);
           line((float) v3.x, (float) v3.y, (float) v1.x, (float) v1.y);
+
           if (cb==true) {
               Gradient c = triangle.c;
               beginShape();
@@ -108,12 +108,13 @@ void renderTriangle(ArrayList<Triangle> tr, boolean cb, int rc, int bc, int gc) 
       }
 }
 
-void renderSphere(ArrayList<Sphere> spheres, boolean cb, int rc, int bc, int gc) {
+void renderSphere(ArrayList<Sphere> spheres, boolean cb, int rc, int bc, int gc, float w) {
     for (Sphere sphere : spheres) {
         Vertex center = transform.transform(sphere.o);
         float radius = (float) sphere.r;
 
         stroke(rc, bc, gc);
+        strokeWeight(w);
         noFill();
         ellipse((float) center.x, (float) center.y, radius * 2, radius * 2);
 
@@ -181,6 +182,7 @@ class Vertex {
     double x;
     double y;
     double z;
+
     Vertex(double x, double y, double z) {
         this.x = x;
         this.y = y;
@@ -218,6 +220,7 @@ class Triangle {
     Vertex v2;
     Vertex v3;
     Gradient c;
+
     Triangle(Vertex v1, Vertex v2, Vertex v3, Gradient c) {
         this.v1 = v1;
         this.v2 = v2;
@@ -232,6 +235,7 @@ class Quadrilateral {
     Vertex v3;
     Vertex v4;
     Gradient c;
+
     Quadrilateral(Vertex v1, Vertex v2, Vertex v3, Vertex v4, Gradient c) {
         this.v1 = v1;
         this.v2 = v2;
@@ -245,6 +249,7 @@ class Sphere {
     Vertex o;
     double r;
     Gradient c;
+
     Sphere(Vertex o, double r, Gradient c) {
         this.o = o;
         this.r = r;
@@ -281,7 +286,7 @@ class Objects {
     
     ArrayList initializeQuadrilateral(int n, double p) {
         ArrayList<Quadrilateral> q = new ArrayList<Quadrilateral>();
-        // Define arrays for the 3D constructions
+
         if (n==1) {
             Vertex r1 = new Vertex((int)100*p, (int)100*p, (int)100*p);
             Vertex r2 = new Vertex((int)-100*p, (int)100*p, (int)100*p);
