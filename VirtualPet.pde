@@ -15,23 +15,23 @@ int g;
 int b;
 
 ArrayList<Quadrilateral> quad1 = new Objects().initializeQuadrilateral(1, 1);
-ArrayList<Quadrilateral> quad2 = new Objects().initializeQuadrilateral(2, 1.25);
-ArrayList<Quadrilateral> quad3 = new Objects().initializeQuadrilateral(3, 2);
-ArrayList<Quadrilateral> quad4 = new Objects().initializeQuadrilateral(4, 2);
-ArrayList<Quadrilateral> quad5 = new Objects().initializeQuadrilateral(5, 2);
-ArrayList<Quadrilateral> quad6 = new Objects().initializeQuadrilateral(6, 2);
-ArrayList<Quadrilateral> quad7 = new Objects().initializeQuadrilateral(7, 2);
-ArrayList<Quadrilateral> quad8 = new Objects().initializeQuadrilateral(8, 2);
-ArrayList<Quadrilateral> quad9 = new Objects().initializeQuadrilateral(9, 2);
-ArrayList<Quadrilateral> quad10 = new Objects().initializeQuadrilateral(10, 2);
-ArrayList<Quadrilateral> quad11 = new Objects().initializeQuadrilateral(11, 2);
-ArrayList<Quadrilateral> quad12 = new Objects().initializeQuadrilateral(12, 2);
-ArrayList<Quadrilateral> quad13 = new Objects().initializeQuadrilateral(13, 2);
+ArrayList<Quadrilateral> quad2 = new Objects().initializeQuadrilateral(2, 0.75);
+ArrayList<Quadrilateral> quad3 = new Objects().initializeQuadrilateral(3, 1.5);
+ArrayList<Quadrilateral> quad4 = new Objects().initializeQuadrilateral(4, 1.5);
+ArrayList<Quadrilateral> quad5 = new Objects().initializeQuadrilateral(5, 1.5);
+ArrayList<Quadrilateral> quad6 = new Objects().initializeQuadrilateral(6, 1.5);
+ArrayList<Quadrilateral> quad7 = new Objects().initializeQuadrilateral(7, 1.5);
+ArrayList<Quadrilateral> quad8 = new Objects().initializeQuadrilateral(8, 1.5);
+ArrayList<Quadrilateral> quad9 = new Objects().initializeQuadrilateral(9, 1.5);
+ArrayList<Quadrilateral> quad10 = new Objects().initializeQuadrilateral(10, 1.5);
+ArrayList<Quadrilateral> quad11 = new Objects().initializeQuadrilateral(11, 1.5);
+ArrayList<Quadrilateral> quad12 = new Objects().initializeQuadrilateral(12, 1.5);
+ArrayList<Quadrilateral> quad13 = new Objects().initializeQuadrilateral(13, 1.5);
 ArrayList<Triangle> tri1 = new Objects().initializeTriangle(1);
 ArrayList<Sphere> s1 = new Objects().initializeSpheres(1);
 
 public void setup() {
-    size(800, 600);
+    size(600, 450);
     strokeWeight(2);
     
     angles[0] = 0;
